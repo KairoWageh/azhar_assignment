@@ -10,6 +10,11 @@ use Illuminate\Http\Request;
 interface UserRepositoryInterface
 {
     /**
+     * @param Request $request
+     * @return mixed
+     */
+    public function addUser(Request $request);
+    /**
      * @param $request
      * @param $id
      * @return mixed

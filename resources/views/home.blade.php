@@ -4,7 +4,79 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
+            @can('user-create')
+            <button type="button" class="btn btn-primary add_user_btn" data-toggle="modal">
+                <i class="fa fa-plus"></i> {{__('user')}}
+            </button>
+            @endcan
             <div class="card">
+                <!-- add user madal start -->
+                <div class="modal fade" id="add_user_modal">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header bg-primary">
+                                <h4 class="modal-title">{{__('add_user')}}</h4>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="validation-errors"></div>
+                            <form id="add_user" method="POST" enctype="multipart/form-data">
+                                {{ csrf_field() }}
+                                <div class="modal-body">
+                                    <div class="form-group">
+                                        <label for="name_en">{{__('name')}}</label>
+                                        <input type="text" name="name" class="form-control @error('name') is-invalid @enderror" id="name" placeholder="{{__('name')}}">
+                                        @error('name')
+                                        <div class="alert alert-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="email">{{__('email')}}</label>
+                                        <input type="email" name="email" class="form-control @error('email') is-invalid @enderror" id="email" placeholder="{{__('email')}}">
+                                        @error('email')
+                                        <div class="alert alert-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="password">{{__('password')}}</label>
+                                        <input type="password" name="password"  class="form-control @error('password') is-invalid @enderror" id="password" placeholder="{{__('password')}}">
+                                        @error('password')
+                                        <div class="alert alert-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="password_confirmation">{{__('password_confirmation')}}</label>
+                                        <input type="password" name="password_confirmation" class="form-control @error('password_confirmation') is-invalid @enderror" id="password_confirmation" placeholder="{{__('password_confirmation')}}">
+                                        @error('password_confirmation')
+                                        <div class="alert alert-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="role">{{__('role')}}</label>
+                                        <select name="role" class="form-control @error('admin_role') is-invalid @enderror">
+                                            <option value="">....</option>
+                                            @foreach($roles as $role)
+                                                <option value="{{$role}}">{{$role}}</option>
+                                            @endforeach
+                                        </select>
+
+                                        @error('admin_role')
+                                        <div class="alert alert-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="modal-footer justify-content-between">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">{{__('close')}}</button>
+                                    <button type="submit" class="btn btn-primary">{{__('add')}}</button>
+                                </div>
+                            </form>
+                        </div>
+                        <!-- /.modal-content -->
+                    </div>
+                    <!-- /.modal-dialog -->
+                </div>
+                <!-- add user modal end -->
 
                 <!-- Edit user modal start -->
                 <div class="modal fade" id="edit_user_modal">
@@ -17,8 +89,6 @@
                                 </button>
                             </div>
                             <div class ="validation-errors"></div>
-
-
                             <form id="edit_user_form" method="POST" enctype="multipart/form-data">
                                 {{ csrf_field() }}
                                 {{ method_field('PATCH') }}
@@ -90,7 +160,10 @@
                             <tr>
                                 <th scope="col">{{__('Name')}}</th>
                                 <th scope="col">{{__('Email')}}</th>
+                                <th scope="col">{{__('role')}}</th>
+                                @canany(['user-edit', 'user-delete'])
                                 <th scope="col">{{__('Actions')}}</th>
+                                @endcanany
                             </tr>
                             </thead>
                             <tbody>
@@ -98,15 +171,22 @@
                                     <tr id="{{$user->id}}">
                                         <td>{{ $user->name }}</td>
                                         <td>{{ $user->email }}</td>
+                                        <td>{{ $user->roles->pluck('name')[0] }}</td>
                                         <td>
-                                            <button type="button" class="btn btn-info edit_user" data-toggle="modal"  name="edit_user" data-id="{{ $user->id }}">
-                                                <i class="fa fa-edit"></i>
-                                            </button>
-                                            @if(!auth())
-                                                <button type="button" class="btn btn-danger delete_user" data-toggle="modal"  name="delete_user" data-id="{{ $user->id }}">
-                                                    <i class="fa fa-trash"></i>
+                                            @if($user->roles->pluck('name')[0] != 'SuperAdmin')
+                                            @can('user-edit')
+                                                <button type="button" class="btn btn-info edit_user" data-toggle="modal"  name="edit_user" data-id="{{ $user->id }}">
+                                                    <i class="fa fa-edit" style="color: #fff"></i>
                                                 </button>
+                                            @endcan
                                             @endif
+                                            @can('user-delete')
+                                                @if($user->id !== Auth::user()->id)
+                                                    <button type="button" class="btn btn-danger delete_user" data-toggle="modal"  name="delete_user" data-id="{{ $user->id }}">
+                                                        <i class="fa fa-trash"></i>
+                                                    </button>
+                                                @endif
+                                            @endcan
                                         </td>
                                     </tr>
                                 @endforeach
@@ -120,6 +200,9 @@
 @endsection
 @push('scripts')
 <script type="text/javascript">
+    function show_add_form(){
+        $('#add_user_modal').modal('show');
+    }
     function edit_user(user_id){
         var url = "{{url('user/:user/edit')}}";
         url = url.replace(':user', user_id);
@@ -170,6 +253,56 @@
     }
 
     $(document).ready(function (){
+        var users_table = $('#users_table');
+        $('.add_user_btn').click(function(){
+            show_add_form();
+        });
+        $('#add_user').on('submit',function(event){
+            event.preventDefault();
+            // get form submitted data
+            let formData = new FormData(this);
+            $.ajax({
+                url: "user",
+                type:"POST",
+                data: formData,
+                contentType: false,
+                processData: false,
+                success:function(response){
+                    if(response.user){
+                        users_table.append('<tr id ="'+response.user.id+'">'+
+                            '<td>'+response.user.name+'</td>'+
+                            '<td>'+response.user.email+'</td>'+
+                            '<td>'+response.user.role+'</td>'
+                        );
+                        var edit_btn = $('<button/>')
+                            .attr('data-id', response.user.id)
+                            .addClass('btn btn-info edit_user')
+                            .attr('onclick', 'edit_user('+response.user.id+')')
+                            .attr('type', 'button')
+                            .html('<i class="fa fa-edit"></i>');
+                        $('.actions_'+response.user.id).append(edit_btn);
+                        var delete_btn = $('<button/>')
+                            .attr('data-id', response.user.id)
+                            .addClass('btn btn-danger delete_user')
+                            .attr('onclick', 'delete_user('+response.user.id+')')
+                            .attr('type', 'button')
+                            .html('<i class="fa fa-trash"></i>');;
+                        $('.actions_'+response.user.id).append(delete_btn);
+                        toastr.success(response.data.message);
+                        $('#add_user_modal').modal('hide');
+                        document.getElementById('add_user').reset();
+                    }else{
+                        toastr.error(response.data.message);
+                    }
+                },
+                error: function (xhr) {
+                    $('.validation-errors').html('');
+                    $.each(xhr.responseJSON.errors, function(key,value) {
+                        $('.validation-errors').append('<p style="color: red">'+value+'</p');
+                    });
+                },
+            });
+        });
        $('.edit_user').click(function (){
            $('.validation-errors').html('');
            var user_id = parseInt($(this).attr("data-id"));

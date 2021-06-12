@@ -14,8 +14,34 @@ use App\Models\User;
  * @package App\Repository\sql
  */
 class UserRepository extends BaseRepository implements UserRepositoryInterface{
+    /**
+     * @param Request $request
+     * @return mixed
+     */
+    public function addUser(Request $request)
+    {
+        $action = 'add';
+        $user_request = new UserRequest($action);
+        $validated = $request->validate($user_request->rules());
+        if($validated == true){
+            $user = User::create([
+                'name' => $request->name,
+                'email' => $request->email,
+                'password' => bcrypt($request->password)
+            ]);
+        }
+        $user->assignRole($request->role);
+        return $user;
+    }
+
+    /**
+     * @param Request $request
+     * @param $id
+     * @return mixed
+     */
     public function updateUser(Request $request, $id){
-        $user_request = new UserRequest;
+        $action = 'edit';
+        $user_request = new UserRequest($action);
         $validated = $request->validate($user_request->rules());
         if($validated == true){
             $user = User::find($id);

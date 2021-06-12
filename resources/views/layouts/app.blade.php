@@ -63,6 +63,9 @@
                                 <a href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->name }}
                                 </a>
+                                <p>
+                                    {{ Auth::user()->getRoleNames()[0] }}
+                                </p>
                         @endguest
                     </ul>
                 </div>
