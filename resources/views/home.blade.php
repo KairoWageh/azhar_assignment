@@ -272,14 +272,15 @@
                         users_table.append('<tr id ="'+response.user.id+'">'+
                             '<td>'+response.user.name+'</td>'+
                             '<td>'+response.user.email+'</td>'+
-                            '<td>'+response.user.role+'</td>'
+                            '<td>'+response.user.role+'</td>'+
+                        '<td class="actions_'+response.user.id+'">'
                         );
                         var edit_btn = $('<button/>')
                             .attr('data-id', response.user.id)
                             .addClass('btn btn-info edit_user')
                             .attr('onclick', 'edit_user('+response.user.id+')')
                             .attr('type', 'button')
-                            .html('<i class="fa fa-edit"></i>');
+                            .html('<i class="fa fa-edit" style="color: #fff"></i>');
                         $('.actions_'+response.user.id).append(edit_btn);
                         var delete_btn = $('<button/>')
                             .attr('data-id', response.user.id)
@@ -288,11 +289,11 @@
                             .attr('type', 'button')
                             .html('<i class="fa fa-trash"></i>');;
                         $('.actions_'+response.user.id).append(delete_btn);
-                        toastr.success(response.data.message);
+                        toastr.success(response.message);
                         $('#add_user_modal').modal('hide');
                         document.getElementById('add_user').reset();
                     }else{
-                        toastr.error(response.data.message);
+                        toastr.error(response.message);
                     }
                 },
                 error: function (xhr) {

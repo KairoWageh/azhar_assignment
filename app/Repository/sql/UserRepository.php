@@ -31,6 +31,7 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface{
             ]);
         }
         $user->assignRole($request->role);
+        $user->role = $request->role;
         return $user;
     }
 

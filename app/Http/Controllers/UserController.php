@@ -50,7 +50,18 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        $this->user->addUser($request);
+        $user = $this->user->addUser($request);
+        if($user != null){
+            $data = [
+                'user' => $user,
+                'message' => __('added')
+            ];
+        }else{
+            $data = [
+                'message' => __('not_added')
+            ];
+        }
+        return $data;
     }
 
     /**
