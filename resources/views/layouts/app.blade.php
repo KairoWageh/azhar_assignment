@@ -19,7 +19,6 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
-{{--    <link href="{{ asset('public/css/bootstrap.min.css') }}">--}}
     <link href="{{ asset('public/css/bootstrap.min.css') }}" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
 
 
@@ -29,14 +28,33 @@
 
     <!-- Toastr -->
     <link rel="stylesheet" href="{{ asset('public/css/toastr.min.css') }}">
+    @if(direction() == 'rtl')
+        <link rel="stylesheet" href="{{asset('public/css/bootstrap-rtl.css') }}">
+        <link rel="stylesheet" href="{{asset('public/style-ar.css') }}">
+    @endif
 
     <script src="{{ asset('public/js/jquery.min.js') }}"></script>
     <script src="{{ asset('public/js/bootstrap.min.js') }}"></script>
-    <script src="{{ asset('public/js/bootstrap.bundle.min.js') }}"></script>
-    <script src="{{ asset('public/js/fontawesome.min.js') }}"></script>
+{{--    <script src="{{ asset('public/js/bootstrap.bundle.min.js') }}"></script>--}}
+{{--    <script src="{{ asset('public/js/fontawesome.min.js') }}"></script>--}}
 </head>
-<body>
+{{--<ul class='nav' style="float: left;">--}}
+{{--    <li>--}}
+{{--        <div class="dropdown">--}}
+{{--            <a class="dropdown-toggle" data-toggle="dropdown" href="#">{{__('language')}}</a>--}}
+{{--            <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">--}}
+                <li>
+                    <a href="{{ url('locale/en') }}"> English </a>
+                </li>
+                <li>
+                    <a href="{{ url('locale/ar') }}"> العربية</a>
+                </li>
+{{--            </ul>--}}
+{{--        </div>--}}
+{{--    </li>--}}
+{{--</ul>--}}
     <div id="app">
+        <body dir="{{(App::isLocale('ar') ? 'rtl' : 'ltr')}}">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -53,7 +71,7 @@
                                 <a class="dropdown-item" href="{{ route('logout') }}"
                                    onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
-                                    {{ __('Logout') }}
+                                    {{ __('logout') }}
                                 </a>
 
                                 <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">

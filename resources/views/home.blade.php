@@ -146,7 +146,7 @@
                     </div>
                 </div>
                 <!-- Delete user modal end -->
-                <div class="card-header">{{ __('Dashboard') }}</div>
+                <div class="card-header">{{ __('dashboard') }}</div>
 
                 <div class="card-body">
                     @if (session('status'))
@@ -158,11 +158,11 @@
                         <table class="table" id="users_table">
                             <thead>
                             <tr>
-                                <th scope="col">{{__('Name')}}</th>
-                                <th scope="col">{{__('Email')}}</th>
+                                <th scope="col">{{__('name')}}</th>
+                                <th scope="col">{{__('email')}}</th>
                                 <th scope="col">{{__('role')}}</th>
                                 @canany(['user-edit', 'user-delete'])
-                                <th scope="col">{{__('Actions')}}</th>
+                                <th scope="col">{{__('control')}}</th>
                                 @endcanany
                             </tr>
                             </thead>

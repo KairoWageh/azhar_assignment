@@ -1,0 +1,27 @@
+{
+    "language": "اللغة",
+    "login": "تسجيل دخول",
+    "email": "البريد الإلكتروني",
+    "password": "كلمة المرور",
+    "forgot_password": "هل نسيت كلمة المرور؟",
+    "remember_me": "تذكرني",
+    "donot_hava_account": "ليس لديك حساب؟",
+    "register": "تسجيل",
+    "logout": "تسجيل خروج",
+    "control": "تحكم",
+    "dashboard": "الرئيسية",
+    "user": "مستخدم",
+    "add_user": "إضافة مستخدم",
+    "name": "الاسم",
+    "password_confirmation": "تأكيد كلمة المرور",
+    "role": "الوظيفة",
+    "add": "إضافة",
+    "close": "إغلاق",
+    "edit_user": "تعديل مستخدم",
+    "edit": "تعديل",
+    "are_you_sure": "هل انت متأكد من حذف هذا المستخدم؟",
+    "confirm": "هذا المستخدم لا يمكن استعادته",
+    "delete": "حذف",
+    "cancel": "إلغاء"
+
+}

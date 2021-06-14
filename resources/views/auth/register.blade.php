@@ -5,23 +5,16 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">{{ __('Register') }}</div>
-
                 <div class="card-body">
-                    <h1>Material Login Form</h1>
                     <div class=" w3l-login-form">
-                        <h2>Login Here</h2>
-                    <form method="POST" action="{{ route('register') }}">
+                        <h2>{{__('register')}}</h2>
+                        <form method="POST" action="{{ route('register') }}">
                         @csrf
-
-                        <div class="w3l-form-group">
-                            <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Name') }}</label>
-
+                            <div class="w3l-form-group">
+                            <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('name') }}</label>
                             <div class="group">
                                 <i class="fas fa-user"></i>
                                 <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
-
-
                             </div>
                             @error('name')
                             <span class="invalid-feedback" role="alert">
@@ -29,8 +22,8 @@
                             </span>
                             @enderror
                         </div>
-                        <div class=" w3l-form-group">
-                            <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('Email') }}</label>
+                            <div class=" w3l-form-group">
+                            <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('email') }}</label>
                             <div class="group">
                                 <i class="fas fa-user"></i>
                                 <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
@@ -43,8 +36,8 @@
                             @enderror
                         </div>
 
-                        <div class=" w3l-form-group">
-                            <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
+                            <div class=" w3l-form-group">
+                            <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('password') }}</label>
 
                             <div class="group">
                                 <i class="fas fa-unlock"></i>
@@ -57,8 +50,8 @@
                             @enderror
                         </div>
 
-                        <div class="w3l-form-group">
-                            <label for="password-confirm" class="col-md-4 col-form-label text-md-right">{{ __('Confirm Password') }}</label>
+                            <div class="w3l-form-group">
+                            <label for="password-confirm" class="col-md-4 col-form-label text-md-right">{{ __('confirm_password') }}</label>
 
                             <div class="group">
                                 <i class="fas fa-unlock"></i>
@@ -66,15 +59,15 @@
                             </div>
                         </div>
 
-                        <div class="form-group row mb-0">
+                            <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-4">
                                 <button type="submit" class="btn btn-primary">
                                     {{ __('Register') }}
                                 </button>
                             </div>
                         </div>
-                    </form>
-                        <p class=" w3l-register-p">Have an account?<a href="login" class="register"> {{__('Login')}}</a></p>
+                        </form>
+                        <p class=" w3l-register-p">{{__('have_an_account')}}<a href="login" class="register"> {{__('login')}}</a></p>
                     </div>
                 </div>
             </div>

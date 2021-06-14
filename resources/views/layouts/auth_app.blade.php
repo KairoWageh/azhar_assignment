@@ -28,55 +28,28 @@
     <link href="//fonts.googleapis.com/css?family=Raleway:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i"
           rel="stylesheet">
     <!-- /google fonts-->
+    @if(direction() == 'rtl')
+        <link rel="stylesheet" href="{{asset('public/css/bootstrap-rtl.css') }}">
+        <link rel="stylesheet" href="{{asset('public/style-ar.css') }}">
+    @endif
 </head>
 <body>
-<div id="app">
-    <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
-        <div class="container">
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <!-- Left Side Of Navbar -->
-                <ul class="navbar-nav mr-auto">
-                </ul>
-
-                <!-- Right Side Of Navbar -->
-                <ul class="navbar-nav ml-auto">
-                    <!-- Authentication Links -->
-                    @guest
-                        {{--                            @if (Route::has('login'))--}}
-                        {{--                                <li class="nav-item">--}}
-                        {{--                                    <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>--}}
-                        {{--                                </li>--}}
-                        {{--                            @endif--}}
-
-                        {{--                            @if (Route::has('register'))--}}
-                        {{--                                <li class="nav-item">--}}
-                        {{--                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>--}}
-                        {{--                                </li>--}}
-                        {{--                            @endif--}}
-                    @else
-                        <li class="nav-item dropdown">
-                            <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                {{ Auth::user()->name }}
-                            </a>
-
-                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="{{ route('logout') }}"
-                                   onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                    {{ __('Logout') }}
-                                </a>
-
-                                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                    @csrf
-                                </form>
-                            </div>
-                        </li>
-                    @endguest
-                </ul>
-            </div>
+<ul class='nav' style="float: left;">
+    <li>
+        <div class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#">{{__('language')}}</a>
+            <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                <li>
+                    <a href="{{ url('locale/en') }}"> English </a>
+                </li>
+                <li>
+                    <a href="{{ url('locale/ar') }}"> العربية</a>
+                </li>
+            </ul>
         </div>
-    </nav>
-
+    </li>
+</ul>
+<div id="app">
     <main class="py-4">
         @yield('content')
     </main>
