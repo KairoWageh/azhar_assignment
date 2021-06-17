@@ -35,24 +35,15 @@
 
     <script src="{{ asset('public/js/jquery.min.js') }}"></script>
     <script src="{{ asset('public/js/bootstrap.min.js') }}"></script>
-{{--    <script src="{{ asset('public/js/bootstrap.bundle.min.js') }}"></script>--}}
-{{--    <script src="{{ asset('public/js/fontawesome.min.js') }}"></script>--}}
 </head>
-{{--<ul class='nav' style="float: left;">--}}
-{{--    <li>--}}
-{{--        <div class="dropdown">--}}
-{{--            <a class="dropdown-toggle" data-toggle="dropdown" href="#">{{__('language')}}</a>--}}
-{{--            <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">--}}
-                <li>
-                    <a href="{{ url('locale/en') }}"> English </a>
-                </li>
-                <li>
-                    <a href="{{ url('locale/ar') }}"> العربية</a>
-                </li>
-{{--            </ul>--}}
-{{--        </div>--}}
-{{--    </li>--}}
-{{--</ul>--}}
+    <ul>
+        <li>
+            <a href="{{ url('locale/en') }}"> English </a>
+        </li>
+        <li>
+            <a href="{{ url('locale/ar') }}"> العربية</a>
+        </li>
+    </ul>
     <div id="app">
         <body dir="{{(App::isLocale('ar') ? 'rtl' : 'ltr')}}">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">

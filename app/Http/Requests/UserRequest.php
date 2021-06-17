@@ -12,11 +12,18 @@ class UserRequest extends FormRequest
     protected $action;
 
     /**
+     * @var
+     */
+    protected $id;
+
+    /**
      * UserRequest constructor.
      * @param $action
+     * @param $id
      */
-    public function __construct( $action){
+    public function __construct($action, $id){
         $this->action = $action;
+        $this->id = $id;
     }
 
     /**
@@ -39,7 +46,7 @@ class UserRequest extends FormRequest
         if($this->action =='add'){
             $rules = [
                 'name'                  => 'required|min:3|max:100',
-                'email'                 => 'required|email',
+                'email'                 => 'required|email|unique:users',
                 'password'              => 'required|min:8',
                 'password_confirmation' => 'required|same:password',
 
@@ -47,7 +54,7 @@ class UserRequest extends FormRequest
         }elseif($this->action == 'edit'){
             $rules = [
                 'edit_name'  => 'required|min:3|max:100',
-                'edit_email' => 'required|email'
+                'edit_email' => 'required|email|unique:users,email='.$this->id
             ];
         }
 

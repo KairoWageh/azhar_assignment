@@ -21,8 +21,23 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface{
     public function addUser(Request $request)
     {
         $action = 'add';
-        $user_request = new UserRequest($action);
-        $validated = $request->validate($user_request->rules());
+        $user_request = new UserRequest($action, null);
+        /**
+         * validation messages
+         */
+        $messages = [
+            'name.required'                  => __('name_required'),
+            'name.min'                       => __('name_min'),
+            'name.max'                       => __('name_max'),
+            'email.required'                 => __('email_required'),
+            'email.email'                    => __('email_email'),
+            'email.unique'                   => __('email_unique'),
+            'password.required'              => __('password_required'),
+            'password.min'                   => __('password_min'),
+            'password_confirmation.required' => __('password_confirmation_required'),
+            'password_confirmation.same'     => __('password_confirmation_same')
+        ];
+        $validated = $request->validate($user_request->rules(), $messages);
         if($validated == true){
             $user = User::create([
                 'name' => $request->name,
@@ -42,8 +57,19 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface{
      */
     public function updateUser(Request $request, $id){
         $action = 'edit';
-        $user_request = new UserRequest($action);
-        $validated = $request->validate($user_request->rules());
+        $user_request = new UserRequest($action, $id);
+        /**
+         * validation messages
+         */
+        $messages = [
+            'edit_name.required'                  => __('name_required'),
+            'edit_name.min'                       => __('name_min'),
+            'edit_name.max'                       => __('name_max'),
+            'edit_email.required'                 => __('email_required'),
+            'edit_email.email'                    => __('email_email'),
+            'edit_email.unique'                   => __('email_unique'),
+        ];
+        $validated = $request->validate($user_request->rules(), $messages);
         if($validated == true){
             $user = User::find($id);
             $user->update([
