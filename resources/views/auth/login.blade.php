@@ -38,7 +38,7 @@
                                 @enderror
                             </div>
                             <div class="forgot">
-                                <a href="#">{{__('forgot_password')}}</a>
+                                <a href="{{route('password.request')}}">{{__('forgot_password')}}</a>
                                 <p><input type="checkbox">{{__('remember_me')}}</p>
                             </div>
                             <button type="submit">{{__('login')}}</button>
